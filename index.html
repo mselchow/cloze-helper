@@ -1,0 +1,55 @@
+<!--
+
+	Prepworks Cloze Helper
+	by Michael Selchow
+
+	Provides an interface to write cloze questions
+	and generate the code for them for Moodle.
+
+	v1.0
+
+	For questions: mselchow@prepworks.com
+
+-->
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Prepworks Cloze Helper</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<script type="text/javascript" src="clozify.js"></script>
+	</head>
+
+	<body>
+		<p>
+			<h1>Prepworks Cloze Helper</h1>
+		</p>
+		<p>
+			<div class="left">
+				<form name="input">
+					Step 1<br />
+					<textarea id="step1" class="steps"></textarea><br /><br />
+					Step 2<br />
+					<textarea id="step2" class="steps"></textarea><br /><br />
+					Step 3<br />
+					<textarea id="step3" class="steps"></textarea><br /><br />
+					Step 4<br />
+					<textarea id="step4" class="steps"></textarea><br /><br />
+					Step 5<br />
+					<textarea id="step5" class="steps"></textarea>
+				</form>
+			</div>
+
+			<div class="right">
+				<a href="javascript:void(0)" onClick="remediate();"><button>Generate Code</button></a>
+				<a href="javascript:void(0)" onClick="clearAll();"><button>Clear</button></a><br />
+				Correct answer:<br />
+				<textarea id="correct" class="output"></textarea><br />
+				Incorrect answer:<br />
+				<textarea id="incorrect" class="output"></textarea><br />
+			</div>
+		</p>
+	</body>
+
+</html>
