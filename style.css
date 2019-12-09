@@ -3,14 +3,33 @@ body {
 	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
+.directions {
+	padding: 0 0 5px 0;
+	margin: 0 25vw;
+}
+
+table {
+	margin: 0 auto;
+}
+
+td {
+	padding: 5px 8px;
+	text-align: left;
+}
+
+td.term {
+	font-weight: bold;
+	text-align: right;
+}
+
 .left {
 	float: left;
-	width: 50vw;
+	width: 50%;
 }
 
 .right {
 	float: right;
-	width: 50vw;
+	width: 50%;
 }
 
 button {
@@ -19,10 +38,6 @@ button {
 	font-size: 1.5em;
 }
 
-textarea .steps {
-	width: auto;
-}
-
-textarea .output {
-	width: 100%;
+pre {
+	font-family: "Times New Roman", Times, serif;
 }
