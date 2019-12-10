@@ -126,7 +126,6 @@ function clearAll() {
 	}
 }
 
-
 /*
 	Replaces all occurrences of reserved Cloze characters with their
 	escaped equivalents. This will replace the following: #, ", /, }, \
@@ -137,6 +136,6 @@ function htmlEscape(str) {
 	  .replace(/\\/g, '\\\\')
 		.replace(/#/g, '\\#')
 		.replace(/"/g, '&quot;')
-		.replace(/\//g, '\\/')
+		.replace(/(\w)\//g, '$1\\/')
 		.replace(/}/g, '\\}');
 }
