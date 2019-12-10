@@ -7,40 +7,59 @@
 */
 
 function clozify() {
-	//Sets up the initial Cloze code
-	var initialClozeCode = "{1:MCVS:";
-
 	var currentStep = "";
-	var clozeCode = "";
+	var clozeCode = "{1:MCVS:";
 	var question = "";
 
+	var correctText = "";
+	var incorrectText = "";
+
 	//Go through each text field and add each section to the clozeCode
+
+	//Start by adding question text
 	if (document.getElementById("question").value != "") {
-		question = htmlEscape(document.getElementById("question").value) + "<br />";
+		question = htmlEscape(document.getElementById("question").value) + "<br />\r\n";
 	}
+	//Add answer text A if not empty
 	if (document.getElementById("ansA").value != "") {
-		currentStep = '<h3 class="accordion-header"><a href="#">Step 2</a></h3>\n<div>\n';
-		currentStep += htmlEscape(document.getElementById("ansA").value) + '\n</div>\n';
+		//If A is the correct answer, add correct answer Cloze code, otherwise add incorrect answer code
+		if (document.getElementById("ansAA").checked) {
+			currentStep = "%100%" + htmlEscape(document.getElementById("ansA").value) + "#" + correctText;
+		} else {
+			currentStep = "~" + htmlEscape(document.getElementById("ansA").value) + "#" + incorrectText;
+		}
 		clozeCode += currentStep;
 	}
+	//Add answer text B if not empty
 	if (document.getElementById("ansB").value != "") {
-		currentStep = '<h3 class="accordion-header"><a href="#">Step 3</a></h3>\n<div>\n';
-		currentStep += htmlEscape(document.getElementById("ansB").value) + '\n</div>\n';
+		if (document.getElementById("ansBB").checked) {
+			currentStep = "%100%" + htmlEscape(document.getElementById("ansB").value) + "#" + correctText;
+		} else {
+			currentStep = "~" + htmlEscape(document.getElementById("ansB").value) + "#" + incorrectText;
+		}
 		clozeCode += currentStep;
 	}
+	//Add answer text C if not empty
 	if (document.getElementById("ansC").value!= "") {
-		currentStep = '<h3 class="accordion-header"><a href="#">Step 4</a></h3>\n<div>\n';
-		currentStep += htmlEscape(document.getElementById("ansC").value) + '\n</div>\n';
+		if (document.getElementById("ansCC").checked) {
+			currentStep = "%100%" + htmlEscape(document.getElementById("ansC").value) + "#" + correctText;
+		} else {
+			currentStep = "~" + htmlEscape(document.getElementById("ansC").value) + "#" + incorrectText;
+		}
 		clozeCode += currentStep;
 	}
+	//Add answer text D if not empty
 	if (document.getElementById("ansD").value != "") {
-		currentStep = '<h3 class="accordion-header"><a href="#">Step 5</a></h3>\n<div>\n';
-		currentStep += htmlEscape(document.getElementById("ansD").value) + '\n</div>\n';
+		if (document.getElementById("ansDD").checked) {
+			currentStep = "%100%" + htmlEscape(document.getElementById("ansD").value) + "#" + correctText;
+		} else {
+			currentStep = "~" + htmlEscape(document.getElementById("ansD").value) + "#" + incorrectText;
+		}
 		clozeCode += currentStep;
 	}
 
 	//Set Cloze code final value
-	document.getElementById("clozecode").value = question + initialClozeCode + clozeCode + "}";
+	document.getElementById("clozecode").value = question + clozeCode + "}";
 }
 
 
@@ -88,13 +107,15 @@ function clearAll() {
 
 
 /*
-	Replaces all occurrences of common characters with their HTML-friendly
-	equivalents. This will replace the following: <, >, -.
+	Replaces all occurrences of reserved Cloze characters with their
+	escaped equivalents. This will replace the following: #, ", /, }, \
 */
 
 function htmlEscape(str) {
-	return String(str);
-		//.replace(/</g, '&lt;')
-		//.replace(/>/g, '&gt;')
-		//.replace(/-/g, '&minus;');
+	return String(str)
+	  .replace(/\\/g, '\\\\')
+		.replace(/#/g, '\\#')
+		.replace(/"/g, '&quot;')
+		.replace(/\//g, '\\/')
+		.replace(/}/g, '\\}');
 }
