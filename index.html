@@ -16,56 +16,79 @@
 <html>
 
 	<head>
-		<title>Prepworks Remediation Helper</title>
+		<title>Prepworks Cloze Helper</title>
 		<link rel="stylesheet" type="text/css" href="style.css" />
-		<script type="text/javascript" src="remediate.js"></script>
+		<script type="text/javascript" src="clozify.js"></script>
 	</head>
 
 	<body>
 		<p>
-			<h1>Prepworks Remediation Helper</h1>
+			<h1>Prepworks Cloze Helper</h1>
 		</p>
 
 		<div class="directions">
 			<table>
 				<tr>
-					<td class="term">Generate Code:</td>
-					<td>creates remediation code from steps input</td>
+					<td class="term">Generate Cloze:</td>
+					<td>creates Cloze code from question & answers input</td>
 				</tr>
 				<tr>
 					<td class="term">Clear:</td>
-					<td>clears all steps and remediation text</td>
+					<td>clears all text from the page</td>
 				</tr>
 				<tr>
-					<td class="term">Unremediate:</td>
-					<td>deconstructs remediation into its original steps</td>
+					<td class="term">Un-Cloze:</td>
+					<td>deconstructs Cloze code into its original question & answers</td>
 				</tr>
 			</table>
 		</div>
 
 		<p>
-			<form name="input" class="left">
-				Step 1<br />
-				<textarea id="step1" rows="8" cols="80" spellcheck="true"></textarea><br /><br />
-				Step 2<br />
-				<textarea id="step2" rows="8" cols="80" spellcheck="true"></textarea><br /><br />
-				Step 3<br />
-				<textarea id="step3" rows="8" cols="80" spellcheck="true"></textarea><br /><br />
-				Step 4<br />
-				<textarea id="step4" rows="8" cols="80" spellcheck="true"></textarea><br /><br />
-				Step 5<br />
-				<textarea id="step5" rows="8" cols="80" spellcheck="true"></textarea>
-			</form>
+
+			<div class="left">
+				<form name="input">
+					<table>
+						<tr>
+							<td>
+								Question:<br />
+								<textarea id="question" rows="8" cols="80" spellcheck="true"></textarea><br /><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="radio" name="answer" value="A" />Answer A:<br />
+								<textarea id="ansA" rows="2" cols="80" spellcheck="true"></textarea><br /><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="radio" name="answer" value="B" />Answer B:<br />
+								<textarea id="ansB" rows="2" cols="80" spellcheck="true"></textarea><br /><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="radio" name="answer" value="C" />Answer C:<br />
+								<textarea id="ansC" rows="2" cols="80" spellcheck="true"></textarea><br /><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="radio" name="answer" value="D" />Answer D:<br />
+								<textarea id="ansD" rows="2" cols="80" spellcheck="true"></textarea><br /><br />
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
 
 			<div class="right">
-				<a href="javascript:void(0)" onClick="remediate();"><button>Generate Code</button></a>
+				<a href="javascript:void(0)" onClick="clozify();"><button>Generate Cloze</button></a>
 				<a href="javascript:void(0)" onClick="clearAll();"><button>Clear</button></a>
-				<a href="javascript:void(0)" onClick="unremediate();"><button>Unremediate</button></a>
+				<a href="javascript:void(0)" onClick="unclozify();"><button>Un-Cloze</button></a>
 				<br />
-				Correct answer:<br />
-				<textarea id="correct" rows="15" cols="80" spellcheck="true"></textarea><br />
-				Incorrect answer:<br />
-				<textarea id="incorrect" rows="15" cols="80" spellcheck="true"></textarea><br />
+				Cloze code:<br />
+				<textarea id="clozecode" rows="15" cols="80" spellcheck="true"></textarea><br />
 			</div>
 		</p>
 	</body>

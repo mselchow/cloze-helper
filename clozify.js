@@ -1,63 +1,73 @@
 /*
-	This function is called on button click and pulls together the remediation
-	input and outputs formatted code for accordion remediation.
+	This function is called on button click and pulls together the question and answers to generate
+	Cloze code for Moodle.
 
-	Remediate() will only pull in remediation for the text boxes that
+	Clozify() will only pull in answers for the text boxes that
 	have text in them.
 */
 
-function remediate() {
-	//Constant values for the header/footer information
-	//e.g., "That's correct/incorrect,"
-	//and sets up the HTML for the accordion.
-	var headerCorrect = `<p><strong>That's correct! Below are the steps to find the correct answer.</strong></p>
-<div style="padding: 10px; height: 450px; width: 80%; display: block; margin-left: auto; margin-right: auto;" class="ui-widget-content">
-<div class="doAccordion">`;
-
-	var headerIncorrect = `<p><strong>Sorry, that's incorrect. Take a moment to review the steps to find the correct answer.</strong></p>
-<div style="padding: 10px; height: 450px; width: 80%; display: block; margin-left: auto; margin-right: auto;" class="ui-widget-content">
-<div class="doAccordion">`;
-
-	var footer = `</div>
-<noscript>This is page features dynamic HTML content. Your browser either does not support JavaScript or has JavaScipt disabled. The content of the dynamic elements will be available to you, but the interactivity will not.</noscript></div>`;
-
-	//var preformat = `<div style="white-space: pre;">`;
+function clozify() {
+	//Sets up the initial Cloze code
+	var initialClozeCode = "{1:MCVS:";
 
 	var currentStep = "";
-	var remediation = "";
+	var clozeCode = "";
+	var question = "";
 
-	//Go through each text field and add each step to the remediation
-	if (document.getElementById("step1").value != "") {
-		currentStep = '<h3 class="accordion-header"><a href="#">Step 1</a></h3>\n<div>\n';
-		currentStep += htmlEscape(document.getElementById("step1").value) + '\n</div>\n';
-		remediation += currentStep;
+	//Go through each text field and add each section to the clozeCode
+	if (document.getElementById("question").value != "") {
+		question = htmlEscape(document.getElementById("question").value) + "<br />";
 	}
-	if (document.getElementById("step2").value != "") {
+	if (document.getElementById("ansA").value != "") {
 		currentStep = '<h3 class="accordion-header"><a href="#">Step 2</a></h3>\n<div>\n';
-		currentStep += htmlEscape(document.getElementById("step2").value) + '\n</div>\n';
-		remediation += currentStep;
+		currentStep += htmlEscape(document.getElementById("ansA").value) + '\n</div>\n';
+		clozeCode += currentStep;
 	}
-	if (document.getElementById("step3").value != "") {
+	if (document.getElementById("ansB").value != "") {
 		currentStep = '<h3 class="accordion-header"><a href="#">Step 3</a></h3>\n<div>\n';
-		currentStep += htmlEscape(document.getElementById("step3").value) + '\n</div>\n';
-		remediation += currentStep;
+		currentStep += htmlEscape(document.getElementById("ansB").value) + '\n</div>\n';
+		clozeCode += currentStep;
 	}
-	if (document.getElementById("step4").value!= "") {
+	if (document.getElementById("ansC").value!= "") {
 		currentStep = '<h3 class="accordion-header"><a href="#">Step 4</a></h3>\n<div>\n';
-		currentStep += htmlEscape(document.getElementById("step4").value) + '\n</div>\n';
-		remediation += currentStep;
+		currentStep += htmlEscape(document.getElementById("ansC").value) + '\n</div>\n';
+		clozeCode += currentStep;
 	}
-	if (document.getElementById("step5").value != "") {
+	if (document.getElementById("ansD").value != "") {
 		currentStep = '<h3 class="accordion-header"><a href="#">Step 5</a></h3>\n<div>\n';
-		currentStep += htmlEscape(document.getElementById("step5").value) + '\n</div>\n';
-		remediation += currentStep;
+		currentStep += htmlEscape(document.getElementById("ansD").value) + '\n</div>\n';
+		clozeCode += currentStep;
 	}
 
-	//Set correct and incorrect final values
-	document.getElementById("correct").value = headerCorrect + remediation + footer;
-	document.getElementById("incorrect").value = headerIncorrect + remediation + footer;
+	//Set Cloze code final value
+	document.getElementById("clozecode").value = question + initialClozeCode + clozeCode + "}";
 }
 
+
+/*
+	This function does the opposite of the remediate function. Given a set of
+	remediation inputs, it will deconstruct it into its original steps.
+*/
+
+function unclozify() {
+	// Gets the remediation from whichever field is not empty
+	var remediation = (document.getElementById("correct").value == "") ? document.getElementById("incorrect").value : document.getElementById("correct").value;
+
+	// Loop through for all 5 step textboxes
+	for (var i = 1; i <= 5; i++) {
+		// Generate a dynamic regex with i
+		var pattern = new RegExp("Step " + i + "<\\/a><\\/h3>\\n?<div>\\n?([^]*?)<\\/div>", "gm");
+
+		// Run the expression for a match
+		var matches = pattern.exec(remediation);
+
+		// If match found, update the right element using a dynamic id
+		var id = "step" + i;
+		if (matches != null) {
+			document.getElementById(id).value = matches[1];
+		}
+	}
+}
 
 
 /*
@@ -66,15 +76,14 @@ function remediate() {
 
 function clearAll() {
 	//Set the output text to blank
-	document.getElementById("correct").value = "";
-	document.getElementById("incorrect").value = "";
+	document.getElementById("clozecode").value = "";
 
 	//Set the input text to blank
-	document.getElementById("step1").value = "";
-	document.getElementById("step2").value = "";
-	document.getElementById("step3").value = "";
-	document.getElementById("step4").value = "";
-	document.getElementById("step5").value = "";
+	document.getElementById("question").value = "";
+	document.getElementById("ansA").value = "";
+	document.getElementById("ansB").value = "";
+	document.getElementById("ansC").value = "";
+	document.getElementById("ansD").value = "";
 }
 
 
@@ -84,8 +93,8 @@ function clearAll() {
 */
 
 function htmlEscape(str) {
-	return String(str)
+	return String(str);
 		//.replace(/</g, '&lt;')
 		//.replace(/>/g, '&gt;')
-		.replace(/-/g, '&minus;');
+		//.replace(/-/g, '&minus;');
 }
