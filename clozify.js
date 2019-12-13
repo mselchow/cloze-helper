@@ -26,36 +26,36 @@ function clozify() {
 	if (document.getElementById("ansA").value != "") {
 		//If A is the correct answer, add correct answer Cloze code, otherwise add incorrect answer code
 		if (document.getElementById("ansAA").checked) {
-			currentStep = "~%100%" + htmlEscape(document.getElementById("ansA").value) + correctText;
+			currentStep = "~%100%A. " + htmlEscape(document.getElementById("ansA").value) + correctText;
 		} else {
-			currentStep = "~" + htmlEscape(document.getElementById("ansA").value) + incorrectText;
+			currentStep = "~A. " + htmlEscape(document.getElementById("ansA").value) + incorrectText;
 		}
 		clozeCode += currentStep;
 	}
 	//Add answer text B if not empty
 	if (document.getElementById("ansB").value != "") {
 		if (document.getElementById("ansBB").checked) {
-			currentStep = "~%100%" + htmlEscape(document.getElementById("ansB").value) + correctText;
+			currentStep = "~%100%B. " + htmlEscape(document.getElementById("ansB").value) + correctText;
 		} else {
-			currentStep = "~" + htmlEscape(document.getElementById("ansB").value) + incorrectText;
+			currentStep = "~B. " + htmlEscape(document.getElementById("ansB").value) + incorrectText;
 		}
 		clozeCode += currentStep;
 	}
 	//Add answer text C if not empty
 	if (document.getElementById("ansC").value!= "") {
 		if (document.getElementById("ansCC").checked) {
-			currentStep = "~%100%" + htmlEscape(document.getElementById("ansC").value) + correctText;
+			currentStep = "~%100%C. " + htmlEscape(document.getElementById("ansC").value) + correctText;
 		} else {
-			currentStep = "~" + htmlEscape(document.getElementById("ansC").value) + incorrectText;
+			currentStep = "~C. " + htmlEscape(document.getElementById("ansC").value) + incorrectText;
 		}
 		clozeCode += currentStep;
 	}
 	//Add answer text D if not empty
 	if (document.getElementById("ansD").value != "") {
 		if (document.getElementById("ansDD").checked) {
-			currentStep = "~%100%" + htmlEscape(document.getElementById("ansD").value) + correctText;
+			currentStep = "~%100%D. " + htmlEscape(document.getElementById("ansD").value) + correctText;
 		} else {
-			currentStep = "~" + htmlEscape(document.getElementById("ansD").value) + incorrectText;
+			currentStep = "~D. " + htmlEscape(document.getElementById("ansD").value) + incorrectText;
 		}
 		clozeCode += currentStep;
 	}
