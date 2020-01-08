@@ -8,7 +8,7 @@
 
 function clozify() {
 	var currentStep = "";
-	var clozeCode = "{1:MCVS:";
+	var clozeCode = "{1:MULTICHOICE_V:";
 	var question = "";
 
 	//var correctText = "#That's correct!";
